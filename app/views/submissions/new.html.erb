@@ -1,0 +1,38 @@
+<div class="max-w-md mx-auto">
+  <h1 class="text-2xl font-bold text-gray-900 mb-6 text-center">
+    <%= @submission.persisted? ? "Edit Your Haiku" : "Submit Your Haiku" %>
+  </h1>
+
+  <%= form_with(model: @submission, url: @submission.persisted? ? submission_path(@submission) : submissions_path) do |f| %>
+    <% if @submission.errors.any? %>
+      <div class="mb-4 p-3 bg-red-100 text-red-800 rounded">
+        <% @submission.errors.full_messages.each do |msg| %>
+          <p><%= msg %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div class="space-y-4">
+      <div>
+        <%= f.label :line1, "Line 1 (5 syllables)", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.text_field :line1, class: "w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#C41C1C]", autofocus: true %>
+      </div>
+
+      <div>
+        <%= f.label :line2, "Line 2 (7 syllables)", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.text_field :line2, class: "w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#C41C1C]" %>
+      </div>
+
+      <div>
+        <%= f.label :line3, "Line 3 (5 syllables)", class: "block text-sm font-medium text-gray-700 mb-1" %>
+        <%= f.text_field :line3, class: "w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#C41C1C]" %>
+      </div>
+
+      <%= f.submit @submission.persisted? ? "Update Haiku" : "Submit Haiku", class: "w-full bg-[#C41C1C] text-white px-6 py-3 rounded-lg font-medium hover:bg-red-800 cursor-pointer" %>
+    </div>
+  <% end %>
+
+  <p class="text-center mt-4">
+    <%= link_to "← Back", root_path, class: "text-gray-500 hover:text-gray-700" %>
+  </p>
+</div>

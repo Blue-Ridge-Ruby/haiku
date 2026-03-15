@@ -1,0 +1,27 @@
+<div class="text-center mb-12">
+  <h1 class="text-4xl font-bold text-gray-900 mb-4">Blue Ridge Ruby Haiku Giveaway</h1>
+  <p class="text-lg text-gray-600 mb-2">Submit a haiku for a chance to win a ticket to Blue Ridge Ruby 2026!</p>
+  <p class="text-lg text-gray-600 mb-6">April 30 &ndash; May 1 &middot; Asheville, NC</p>
+
+  <% if Current.user&.submission %>
+    <%= link_to "Edit Your Haiku", new_submission_path, class: "inline-block bg-[#C41C1C] text-white px-6 py-3 rounded-lg font-medium hover:bg-red-800" %>
+  <% else %>
+    <%= link_to "Submit Your Haiku", new_submission_path, class: "inline-block bg-[#C41C1C] text-white px-6 py-3 rounded-lg font-medium hover:bg-red-800" %>
+  <% end %>
+
+  <p class="text-sm text-gray-500 mt-4"><%= @submissions.count %> haiku<%= @submissions.count == 1 ? "" : "s" %> submitted</p>
+</div>
+
+<% if @submissions.any? %>
+  <div class="grid gap-6">
+    <% @submissions.each do |submission| %>
+      <div class="bg-gray-50 rounded-lg p-6 text-center">
+        <p class="text-lg text-gray-800 italic leading-relaxed">
+          <%= submission.line1 %><br>
+          <%= submission.line2 %><br>
+          <%= submission.line3 %>
+        </p>
+      </div>
+    <% end %>
+  </div>
+<% end %>

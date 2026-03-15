@@ -1,0 +1,34 @@
+<h1 class="text-2xl font-bold text-gray-900 mb-6">Admin — All Submissions</h1>
+
+<div class="space-y-4">
+  <% @submissions.each do |submission| %>
+    <div class="border rounded-lg p-4 <%= submission.discarded? ? 'bg-red-50 border-red-200' : 'bg-white border-gray-200' %>">
+      <div class="flex justify-between items-start">
+        <div>
+          <p class="text-sm text-gray-500 mb-2">
+            <strong><%= submission.user.github_username %></strong>
+            (<%= submission.user.github_email %>)
+            &middot; <%= time_ago_in_words(submission.created_at) %> ago
+            <% if submission.discarded? %>
+              <span class="text-red-600 font-medium">— discarded</span>
+            <% end %>
+          </p>
+          <p class="text-gray-800 italic">
+            <%= submission.line1 %><br>
+            <%= submission.line2 %><br>
+            <%= submission.line3 %>
+          </p>
+        </div>
+        <div>
+          <%= button_to submission.discarded? ? "Restore" : "Discard",
+              admin_toggle_discard_path(submission),
+              class: "text-sm px-3 py-1 rounded #{submission.discarded? ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'} cursor-pointer" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<% if @submissions.empty? %>
+  <p class="text-gray-500 text-center">No submissions yet.</p>
+<% end %>

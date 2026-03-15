@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Blue Ridge Ruby Haiku Giveaway" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Submit a haiku for a chance to win a ticket to Blue Ridge Ruby 2026!">
+    <meta property="og:title" content="Blue Ridge Ruby Haiku Giveaway">
+    <meta property="og:description" content="Submit a haiku for a chance to win a ticket to Blue Ridge Ruby 2026!">
+    <meta property="og:type" content="website">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+  </head>
+
+  <body class="bg-white min-h-screen">
+    <header class="bg-[#C41C1C] text-white">
+      <nav class="max-w-2xl mx-auto px-4 py-4 flex justify-between items-center">
+        <%= link_to "Blue Ridge Ruby", root_path, class: "text-xl font-bold" %>
+        <div class="flex items-center gap-4">
+          <% if Current.user %>
+            <span class="text-sm opacity-90"><%= Current.user.github_username %></span>
+            <% if Current.admin? %>
+              <%= link_to "Admin", admin_path, class: "text-sm underline" %>
+            <% end %>
+            <%= button_to "Sign Out", sign_out_path, method: :delete, class: "text-sm underline bg-transparent border-0 text-white cursor-pointer" %>
+          <% else %>
+            <%= button_to "Sign in with GitHub", "/auth/github", data: { turbo: false }, class: "text-sm bg-white text-[#C41C1C] px-3 py-1 rounded font-medium cursor-pointer" %>
+          <% end %>
+        </div>
+      </nav>
+    </header>
+
+    <main class="max-w-2xl mx-auto px-4 py-8">
+      <% if flash[:notice] %>
+        <div class="mb-4 p-3 bg-green-100 text-green-800 rounded"><%= flash[:notice] %></div>
+      <% end %>
+      <% if flash[:alert] %>
+        <div class="mb-4 p-3 bg-red-100 text-red-800 rounded"><%= flash[:alert] %></div>
+      <% end %>
+
+      <%= yield %>
+    </main>
+  </body>
+</html>
