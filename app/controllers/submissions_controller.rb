@@ -1,4 +1,5 @@
 class SubmissionsController < ApplicationController
+  before_action :require_submissions_open
   before_action :require_authentication
 
   def new
@@ -26,6 +27,10 @@ class SubmissionsController < ApplicationController
   end
 
   private
+
+  def require_submissions_open
+    redirect_to root_path, alert: "Submissions are closed." unless submissions_open?
+  end
 
   def submission_params
     params.require(:submission).permit(:line1, :line2, :line3)

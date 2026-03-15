@@ -17,4 +17,14 @@ class ApplicationController < ActionController::Base
     require_authentication
     redirect_to root_path, alert: "Not authorized." unless Current.admin?
   end
+
+  def submission_deadline
+    Time.parse(ENV["SUBMISSION_DEADLINE"])
+  end
+  helper_method :submission_deadline
+
+  def submissions_open?
+    Time.current < submission_deadline
+  end
+  helper_method :submissions_open?
 end

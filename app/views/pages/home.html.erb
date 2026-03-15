@@ -3,10 +3,15 @@
   <p class="text-lg text-gray-600 mb-2">Submit a haiku for a chance to win a ticket to Blue Ridge Ruby 2026!</p>
   <p class="text-lg text-gray-600 mb-6">April 30 &ndash; May 1 &middot; Asheville, NC</p>
 
-  <% if Current.user&.submission %>
-    <%= link_to "Edit Your Haiku", new_submission_path, class: "inline-block bg-[#C41C1C] text-white px-6 py-3 rounded-lg font-medium hover:bg-red-800" %>
+  <% if submissions_open? %>
+    <% if Current.user&.submission %>
+      <%= link_to "Edit Your Haiku", new_submission_path, class: "inline-block bg-[#C41C1C] text-white px-6 py-3 rounded-lg font-medium hover:bg-red-800" %>
+    <% else %>
+      <%= link_to "Submit Your Haiku", new_submission_path, class: "inline-block bg-[#C41C1C] text-white px-6 py-3 rounded-lg font-medium hover:bg-red-800" %>
+    <% end %>
+    <p class="text-sm text-gray-500 mt-4">Submissions close in <time datetime="<%= submission_deadline.iso8601 %>" title="<%= submission_deadline.utc.strftime("%B %-d, %Y at %H:%M UTC") %>" class="underline decoration-dotted cursor-pointer"><%= distance_of_time_in_words_to_now(submission_deadline) %></time></p>
   <% else %>
-    <%= link_to "Submit Your Haiku", new_submission_path, class: "inline-block bg-[#C41C1C] text-white px-6 py-3 rounded-lg font-medium hover:bg-red-800" %>
+    <p class="text-lg text-gray-500 font-medium">Submissions are closed</p>
   <% end %>
 
   <p class="text-sm text-gray-500 mt-4"><%= @submissions.count %> haiku<%= @submissions.count == 1 ? "" : "s" %> submitted</p>
