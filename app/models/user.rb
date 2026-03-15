@@ -1,10 +1,6 @@
 class User < ApplicationRecord
   has_one :submission
 
-  def admin?
-    github_username == ENV["ADMIN_GITHUB_USERNAME"]
-  end
-
   def self.find_or_create_from_omniauth(auth)
     find_or_create_by(github_uid: auth.uid) do |user|
       user.github_username = auth.info.nickname
