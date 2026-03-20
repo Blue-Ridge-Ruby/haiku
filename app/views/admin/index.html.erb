@@ -11,6 +11,7 @@
                 <strong><%= submission.user.github_username %></strong>
                 (<%= submission.user.github_email %>)
                 &middot; <%= time_ago_in_words(submission.created_at) %> ago
+                &middot; <strong><%= submission.votes.size %></strong> vote<%= submission.votes.size == 1 ? "" : "s" %>
                 <% if submission.discarded? %>
                   <span class="text-red-400 font-medium">— discarded</span>
                 <% end %>

@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_one :submission
+  has_many :votes
 
   def self.find_or_create_from_omniauth(auth)
     find_or_create_by(github_uid: auth.uid) do |user|

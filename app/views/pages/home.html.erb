@@ -56,6 +56,27 @@
               <%= submission.line2 %><br>
               <%= submission.line3 %>
             </p>
+
+            <div class="mt-4 flex items-center justify-between gap-2">
+              <div class="text-gray-500">
+                <%= submission.votes.size %> vote<%= submission.votes.size == 1 ? "" : "s" %>
+              </div>
+
+              <div>
+                <% if Current.user && submission.user_id != Current.user.id %>
+                  <% if @voted_submission_ids.include?(submission.id) %>
+                    <%= button_to submission_vote_path(submission), method: :delete, class: "inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full cursor-pointer bg-gray-400 bg-linear-to-t from-gray-500 to-gray-400 text-white" do %>
+                      Voted
+                    <% end %>
+                  <% else %>
+                    <%= button_to submission_vote_path(submission), method: :post, class: "inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full cursor-pointer bg-[#C41C1C] bg-linear-to-t from-[#C41C1C] to-[#DD423E] text-white" do %>
+                      ⬆ Vote
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </div>
+
+            </div>
           </div>
         <% end %>
       </div>

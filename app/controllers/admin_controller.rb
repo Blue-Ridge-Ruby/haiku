@@ -2,7 +2,7 @@ class AdminController < ApplicationController
   before_action :require_admin
 
   def index
-    @submissions = Submission.includes(:user).order(created_at: :desc)
+    @submissions = Submission.includes(:user, :votes).order(created_at: :desc)
   end
 
   def toggle_discard
