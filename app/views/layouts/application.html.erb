@@ -12,6 +12,7 @@
 
     <%= yield :head %>
 
+    <link rel="stylesheet" href="https://use.typekit.net/bzt5uqd.css">
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
@@ -20,32 +21,40 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
 
-  <body class="bg-white min-h-screen">
-    <header class="bg-[#C41C1C] text-white">
-      <nav class="max-w-2xl mx-auto px-4 py-4 flex justify-between items-center">
-        <%= link_to "Blue Ridge Ruby", root_path, class: "text-xl font-bold" %>
-        <div class="flex items-center gap-4">
+  <body class="bg-mountains-fixed" style="background-image: url('<%= image_path('mountains.jpg') %>')">
+    <nav class="max-w-5xl mx-auto px-8 py-10">
+      <div class="flex items-center justify-between">
+        <%= link_to root_path, class: "flex items-center" do %>
+          <div class="shrink-0 mr-0.5">
+            <%= image_tag "logo.svg", alt: "Blue Ridge Ruby", class: "h-10" %>
+          </div>
+        <% end %>
+
+        <div class="flex items-center gap-x-3">
           <% if Current.user %>
-            <span class="text-sm opacity-90"><%= Current.user.github_username %></span>
             <% if Current.admin? %>
-              <%= link_to "Admin", admin_path, class: "text-sm underline" %>
+              <%= link_to "Admin", admin_path, class: "text-[#2672B5] px-3 py-1 font-medium" %>
             <% end %>
-            <%= button_to "Sign Out", sign_out_path, method: :delete, class: "text-sm underline bg-transparent border-0 text-white cursor-pointer" %>
+            <%= button_to "Log out", sign_out_path, method: :delete, class: "text-[#2672B5] px-3 py-1 font-medium bg-transparent border-0 cursor-pointer" %>
           <% else %>
-            <%= button_to "Sign in with GitHub", "/auth/github", data: { turbo: false }, class: "text-sm bg-white text-[#C41C1C] px-3 py-1 rounded font-medium cursor-pointer" %>
+            <%= button_to "Log in with GitHub", "/auth/github", data: { turbo: false }, class: "bg-[#C41C1C] bg-linear-to-t from-[#C41C1C] to-[#DD423E] text-white font-medium py-2 px-4 shadow-sm rounded-sm cursor-pointer" %>
           <% end %>
         </div>
-      </nav>
-    </header>
+      </div>
+    </nav>
 
-    <main class="max-w-2xl mx-auto px-4 py-8">
-      <% if flash[:notice] %>
-        <div class="mb-4 p-3 bg-green-100 text-green-800 rounded"><%= flash[:notice] %></div>
-      <% end %>
-      <% if flash[:alert] %>
-        <div class="mb-4 p-3 bg-red-100 text-red-800 rounded"><%= flash[:alert] %></div>
-      <% end %>
+    <% if flash[:notice] %>
+      <div class="max-w-2xl mx-auto px-8 mb-4">
+        <div class="p-3 bg-green-100 text-green-800 rounded-lg"><%= flash[:notice] %></div>
+      </div>
+    <% end %>
+    <% if flash[:alert] %>
+      <div class="max-w-2xl mx-auto px-8 mb-4">
+        <div class="p-3 bg-red-100 text-red-800 rounded-lg"><%= flash[:alert] %></div>
+      </div>
+    <% end %>
 
+    <main>
       <%= yield %>
     </main>
   </body>
