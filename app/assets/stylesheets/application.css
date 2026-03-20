@@ -1,0 +1,33 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-*: initial;
+  --font-sans: colfax-web, sans-serif;
+  --font-mono:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono,
+    Courier New, monospace;
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+.bg-mountains-fixed {
+  background-color: #0C2866;
+  background-size: 1800px auto;
+  background-repeat: no-repeat;
+  background-position: 50% 0%;
+  background-attachment: fixed;
+}
+
+@media screen and (min-width: 1800px) {
+  .bg-mountains-fixed {
+    background-size: 100% auto;
+  }
+}
