@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   get "auth/failure", to: "sessions#failure"
   delete "sign_out", to: "sessions#destroy"
 
-  resources :submissions, only: [ :new, :create, :update ]
+  resources :submissions, only: [ :new, :create, :update ] do
+    resource :vote, only: [ :create, :destroy ]
+  end
 
   get "admin", to: "admin#index"
   post "admin/:id/toggle_discard", to: "admin#toggle_discard", as: :admin_toggle_discard

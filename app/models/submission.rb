@@ -1,5 +1,6 @@
 class Submission < ApplicationRecord
   belongs_to :user
+  has_many :votes
 
   validates :line1, :line2, :line3, presence: true
 

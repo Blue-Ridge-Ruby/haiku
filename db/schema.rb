@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_15_175159) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_20_191401) do
   create_table "submissions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "discarded_at"
@@ -33,5 +33,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_15_175159) do
     t.index ["github_uid"], name: "index_users_on_github_uid", unique: true
   end
 
+  create_table "votes", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "submission_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["submission_id"], name: "index_votes_on_submission_id"
+    t.index ["user_id", "submission_id"], name: "index_votes_on_user_id_and_submission_id", unique: true
+    t.index ["user_id"], name: "index_votes_on_user_id"
+  end
+
   add_foreign_key "submissions", "users"
+  add_foreign_key "votes", "submissions"
+  add_foreign_key "votes", "users"
 end
