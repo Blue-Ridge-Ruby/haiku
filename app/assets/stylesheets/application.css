@@ -18,16 +18,15 @@
   }
 }
 
-.bg-mountains-fixed {
+.bg-mountains {
   background-color: #0C2866;
   background-size: 1800px auto;
   background-repeat: no-repeat;
   background-position: 50% 0%;
-  background-attachment: fixed;
 }
 
 @media screen and (min-width: 1800px) {
-  .bg-mountains-fixed {
+  .bg-mountains {
     background-size: 100% auto;
   }
 }
