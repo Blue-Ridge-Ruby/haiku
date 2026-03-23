@@ -8,12 +8,10 @@ class ApplicationController < ActionController::Base
   end
 
   def require_authentication
-    set_current_user
-    redirect_to root_path, alert: "Please sign in first." unless Current.user
+    redirect_to root_path, alert: "Please log in first." unless Current.user
   end
 
   def require_admin
-    require_authentication
     redirect_to root_path, alert: "Not authorized." unless Current.admin?
   end
 
