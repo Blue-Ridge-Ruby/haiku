@@ -9,7 +9,6 @@
         A haiku is a three-line, unrhymed poetic form typically consisting of 17 syllables in a 5-7-5 pattern. Our theme is “search,” however you would like to interpret that.
       </p>
 
-
       <%= form_with(model: @submission, url: @submission.persisted? ? submission_path(@submission) : submissions_path) do |f| %>
         <% if @submission.errors.any? %>
           <div class="mb-4 p-3 bg-red-100 text-red-800 rounded-lg">
