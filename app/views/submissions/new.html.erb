@@ -18,7 +18,7 @@
           </div>
         <% end %>
 
-        <div class="space-y-4">
+        <div class="space-y-4 mb-4">
           <div>
             <%= f.label :line1, "Line 1", class: "block font-medium text-[#0C2866] mb-1" %>
             <%= f.text_field :line1, class: "w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2672B5]", autofocus: true %>
@@ -34,8 +34,14 @@
             <%= f.text_field :line3, class: "w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2672B5]" %>
           </div>
 
-          <%= f.submit @submission.persisted? ? "Update Haiku" : "Submit Haiku", class: "bg-[#C41C1C] bg-linear-to-t from-[#C41C1C] to-[#DD423E] text-white font-medium py-3 px-6 shadow-sm rounded-sm cursor-pointer text-lg" %>
+          <% if @submission.editable? %>
+            <%= f.submit @submission.persisted? ? "Update Haiku" : "Submit Haiku", class: "bg-[#C41C1C] bg-linear-to-t from-[#C41C1C] to-[#DD423E] text-white font-medium py-3 px-6 shadow-sm rounded-sm cursor-pointer text-lg" %>
+          <% end %>
         </div>
+
+        <p class="text-gray-500">
+          You can edit your haiku up to an hour after creation.
+        </p>
       <% end %>
     </div>
   </div>

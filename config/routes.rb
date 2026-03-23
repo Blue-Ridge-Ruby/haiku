@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
 
   get "admin", to: "admin#index"
+  get "admin/export", to: "admin#export"
   post "admin/:id/toggle_discard", to: "admin#toggle_discard", as: :admin_toggle_discard
 
   get "up" => "rails/health#show", as: :rails_health_check
