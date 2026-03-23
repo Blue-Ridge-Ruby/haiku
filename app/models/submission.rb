@@ -18,4 +18,10 @@ class Submission < ApplicationRecord
   def discarded?
     discarded_at.present?
   end
+
+  def editable?
+    return true unless persisted?
+
+    created_at > 1.hour.ago
+  end
 end

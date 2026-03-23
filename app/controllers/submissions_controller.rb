@@ -19,6 +19,11 @@ class SubmissionsController < ApplicationController
   def update
     @submission = Current.user.submission
 
+    unless @submission.editable?
+      redirect_to root_path, alert: "Submissions can only be edited within an hour of creation."
+      return
+    end
+
     if @submission.update(submission_params)
       redirect_to root_path, notice: "Haiku updated!"
     else
