@@ -1,4 +1,5 @@
 class VotesController < ApplicationController
+  before_action :require_voting_open
   before_action :require_authentication
   before_action :set_submission
 
@@ -19,6 +20,10 @@ class VotesController < ApplicationController
   end
 
   private
+
+  def require_voting_open
+    redirect_to root_path, alert: "Voting is closed." unless voting_open?
+  end
 
   def set_submission
     @submission = Submission.find(params[:submission_id])

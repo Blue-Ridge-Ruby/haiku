@@ -63,14 +63,16 @@
               </div>
 
               <div>
-                <% if Current.user && submission.user_id != Current.user.id %>
-                  <% if @voted_submission_ids.include?(submission.id) %>
-                    <%= button_to submission_vote_path(submission), method: :delete, class: "inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full cursor-pointer bg-gray-400 bg-linear-to-t from-gray-500 to-gray-400 text-white" do %>
-                      Clear Vote
-                    <% end %>
-                  <% else %>
-                    <%= button_to submission_vote_path(submission), method: :post, class: "inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full cursor-pointer bg-[#C41C1C] bg-linear-to-t from-[#C41C1C] to-[#DD423E] text-white" do %>
-                      ⬆ Vote
+                <% if voting_open? %>
+                  <% if Current.user && submission.user_id != Current.user.id %>
+                    <% if @voted_submission_ids.include?(submission.id) %>
+                      <%= button_to submission_vote_path(submission), method: :delete, class: "inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full cursor-pointer bg-gray-400 bg-linear-to-t from-gray-500 to-gray-400 text-white" do %>
+                        Clear Vote
+                      <% end %>
+                    <% else %>
+                      <%= button_to submission_vote_path(submission), method: :post, class: "inline-flex items-center gap-1 text-sm px-3 py-1 rounded-full cursor-pointer bg-[#C41C1C] bg-linear-to-t from-[#C41C1C] to-[#DD423E] text-white" do %>
+                        ⬆ Vote
+                      <% end %>
                     <% end %>
                   <% end %>
                 <% end %>
