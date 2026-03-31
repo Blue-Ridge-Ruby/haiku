@@ -24,4 +24,9 @@ class ApplicationController < ActionController::Base
     Time.current < submission_deadline
   end
   helper_method :submissions_open?
+
+  def voting_open?
+    false
+  end
+  helper_method :voting_open?
 end
